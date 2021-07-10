@@ -67,3 +67,16 @@ func Test_UserService_GetUser(t *testing.T) {
 	require.Equal(t, expectedUser.Name, u.Name)
 	require.Equal(t, expectedUser.Email, u.Email)
 }
+
+func Test_UserService_DeleteUser(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	expectedID := "1"
+
+	mockUserService := NewMockUserService(ctrl)
+	mockUserService.EXPECT().DeleteUser(expectedID).Return(nil)
+
+	err := mockUserService.DeleteUser(expectedID)
+	require.NoError(t, err)
+}
